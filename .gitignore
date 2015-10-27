@@ -1,0 +1,10 @@
+node_modules
+app.js
+public/css
+public/js
+routes/*.js
+app/*.js
+app/bin/
+app/routes/
+bin/www
+*.swp
