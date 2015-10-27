@@ -8,3 +8,4 @@ app/bin/
 app/routes/
 bin/www
 *.swp
+npm-debug.log

@@ -14,6 +14,12 @@ module.exports = (grunt) ->
         src: '*.coffee'
         dest: 'public/js/'
         ext: '.js'
+      models:
+        expand: true
+        cwd: 'models/'
+        src: '*.coffee'
+        dest: 'models/'
+        ext: '.js'
     jade:
       options:
         pretty: true
@@ -35,7 +41,7 @@ module.exports = (grunt) ->
     watch:
       coffee:
         files: '**/*.coffee'
-        tasks: ['coffee:src', 'coffee:assets']
+        tasks: ['coffee:src', 'coffee:assets', 'coffee:models']
       less:
         files: 'assets/css/**/*.less'
         tasks: ['less:all']
@@ -50,7 +56,7 @@ module.exports = (grunt) ->
           ignore: ['public']
           delay: 800
     concurrent:
-      dev: 
+      dev:
         tasks: ['watch', 'nodemon:dev']
 
         options:
@@ -63,5 +69,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-concurrent'
   grunt.loadNpmTasks 'grunt-nodemon'
 
-  grunt.registerTask('default', ['coffee', 'jade', 'less']);
-  grunt.registerTask('w', ['concurrent:dev']);
+  grunt.registerTask('default', ['coffee', 'jade', 'less'])
+  grunt.registerTask('w', ['concurrent:dev'])

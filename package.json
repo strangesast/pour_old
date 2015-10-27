@@ -3,26 +3,34 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./app/bin/www"
+    "start": "node ./app/bin/www",
+    "test": "coffee -c test/*.coffee && make test"
   },
   "dependencies": {
     "body-parser": "*",
     "cookie-parser": "*",
     "debug": "*",
     "express": "*",
+    "express-session": "^1.12.0",
     "jade": "*",
+    "mongoose": "^4.2.3",
     "morgan": "*",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^3.1.0",
     "serialport": "^2.0.1",
-    "serve-favicon": "*"
+    "serve-favicon": "*",
+    "should": "^7.1.1"
   },
   "devDependencies": {
     "grunt": "*",
     "grunt-concurrent": "*",
     "grunt-contrib-coffee": "*",
-    "grunt-contrib-less": "*",
     "grunt-contrib-jade": "*",
+    "grunt-contrib-less": "*",
     "grunt-contrib-watch": "*",
     "grunt-nodemon": "*",
-    "load-grunt-tasks": "*"
+    "load-grunt-tasks": "*",
+    "mocha": "^2.3.3"
   }
 }
