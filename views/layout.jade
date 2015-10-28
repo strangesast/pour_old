@@ -4,9 +4,37 @@ html
     title Pour
     link(rel='stylesheet', href='/css/style.css')
     link(rel='shortcut icon', href='/images/favicon.ico')
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+
     block head
 
   body
-    block content
+    header
+      ul
+        li#site-home
+          a(href='/') Pour
+        span.flex
+        if (!user)
+          li
+            a(href="/login") Login
+          li
+            a(href="/register") Register
+        if (user)
+          li
+            a(href="/user/#{user.username}")=user.username
+          li
+            a(href="/logout") Logout
+
+    .container
+      block content
+
+    footer
+      ul
+        li
+          span Hi
+        li
+          span Hello
 
     block scripts

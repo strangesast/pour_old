@@ -1,5 +1,5 @@
 app = require '../app'
-debug = require('debug')('app:server');
+debug = require('debug')('app:server')
 http = require 'http'
 
 normalizePort = (val) ->
@@ -18,12 +18,12 @@ onError = (error) ->
   unless error.syscall is 'listen'
     throw error
 
-  bind = if typeof port is 'string' 
-  then 'Pipe ' + port 
+  bind = if typeof port is 'string'
+  then 'Pipe ' + port
   else 'Port ' + port
 
   switch error.code
-    when 'EACCES' 
+    when 'EACCES'
       console.error bind + ' requires elevated privileges'
       process.exit 1
       break

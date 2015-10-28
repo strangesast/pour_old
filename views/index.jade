@@ -5,34 +5,29 @@ block head
 
 block content
   #header
-    h1 Pour
     p Welcome to Pour
 
-    if (!user)
-      a(href="/login") Login
-      br
-      a(href="/register") Register
-    if (user)
-      p You are currently logged in as #{user.username}
-      a(href="/logout") Logout
+  #summary-container
+    h3 Status
+    p= 'Current Temp: ' + summary.avg_temp
+    p= 'OZ dispensed: ' + summary.total_dispensed
 
-  .box-container
-    #summary-container
-      h3 Status
-      p= 'Current Temp: ' + summary.avg_temp
-      p= 'OZ dispensed: ' + summary.total_dispensed
-    #drinker-container
-      if drinkers
-        h3 Drinkers
-        ul
-        each drinker, index in drinkers
-          li=drinker
-      else
-        p No drinkers
+  #drinker-container
+    if drinkers
+      h3 Drinkers
+      ul
+      each drinker, index in drinkers
+        li=drinker
+    else
+      p No drinkers
 
-    #actions-container
-      h3 Actions
-      button Pour
+  #actions-container
+    h3 Actions
+    div
+      input(type='number', min="0", name="volume", placeholder='ticks')#pour-input
+      button#pour Pour
+    progress(max="100", value="0")#pour-progress
+    pre#pour-output
 
 block scripts
   script(src='/js/index.js')

@@ -1,0 +1,5 @@
+{
+  "address" : "127.0.0.1",
+  "port" : "3001",
+  "serial_address" : "/dev/ttyACM0"
+}

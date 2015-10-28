@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  if user
+    p (you're logged in)
+  else
+    p Hello #{account_name}

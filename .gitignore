@@ -9,3 +9,4 @@ app/routes/
 bin/www
 *.swp
 npm-debug.log
+arduino/*/.build
