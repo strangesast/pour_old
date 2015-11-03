@@ -3,11 +3,11 @@ express = require 'express'
 router = express.Router()
 Account = require '../../models/account'
 passport = require 'passport'
-net = require 'net'
-server = http.createServer()
-WebSocketServer = require('ws').Server
-wss = new WebSocketServer server: server, path: '/pourlive'
-server.listen(3002)
+#net = require 'net'
+#server = http.createServer()
+#WebSocketServer = require('ws').Server
+#wss = new WebSocketServer server: server, path: '/pourlive'
+#server.listen(3002)
 
 router.get '/', (req, res, next) ->
   # get pour history
@@ -64,34 +64,35 @@ router.get '/user/:account_name', (req, res) ->
 
 router.all '/pour', (req, res) ->
   user = req.user
-  if not user
-    return res.json error: "not logged in"
+  #if not user
+  #  return res.json error: "not logged in"
 
   body = req.body
   if 'amount' of body
     amount = body.amount
-    wss.on 'connection', (ws) ->
-      client = new net.Socket()
-      client.on 'data', (data) ->
-        clean = data.toString().split('\r\n')[0]
-        update = clean.indexOf('update') > -1
-        end = clean.indexOf('end') > -1
-        start = clean.indexOf('start') > -1
+    #wss.on 'connection', (ws) ->
+    #  client = new net.Socket()
+    #  client.on 'data', (data) ->
+    #    clean = data.toString().split('\r\n')[0]
+    #    update = clean.indexOf('update') > -1
+    #    end = clean.indexOf('end') > -1
+    #    start = clean.indexOf('start') > -1
 
-        ws.send(JSON.stringify(start: start, update: update, end: end, all: clean))
+    #    ws.send(JSON.stringify(start: start, update: update, end: end, all: clean))
 
-      client.on 'close', ->
-        console.log 'client closed'
+    #  client.on 'close', ->
+    #    console.log 'client closed'
 
-      client.connect 3001, '127.0.0.1', ->
-        setTimeout ->
-          console.log "writing to serial server"
-          client.write(amount + '\n')
-        , 500
+    #  client.connect 3001, '127.0.0.1', ->
+    #    setTimeout ->
+    #      console.log "writing to serial server"
+    #      client.write(amount + '\n')
+    #    , 500
 
-    res.send socket_url: 'ws://127.0.0.1:3002/pourlive'
+    res.send socket_url: 'pourlive'
 
   else
-    res.send body: body, user: user
+    res.send socket_url: 'pourlive'
+    #res.send body: body, user: user
 
 module.exports = router

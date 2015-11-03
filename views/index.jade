@@ -1,5 +1,10 @@
 extends layout
 
+mixin rad_loading(_id)
+  .wrapper(id=_id, data-anim="base wrapper")
+    .circle(data-anim="base left")
+    .circle(data-anim="base right")
+
 block head
   link(rel='stylesheet', href='/css/index.css')
 
@@ -26,8 +31,11 @@ block content
     div
       input(type='number', min="0", name="volume", placeholder='ticks')#pour-input
       button#pour Pour
+
     progress(max="100", value="0")#pour-progress
     pre#pour-output
+    canvas#test-canvas
+    canvas#loading-canvas
 
 block scripts
   script(src='/js/index.js')

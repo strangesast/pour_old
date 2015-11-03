@@ -7,6 +7,7 @@ bodyParser =   require 'body-parser'
 mongoose =     require 'mongoose'
 passport =     require 'passport'
 LocalStrategy= require('passport-local').Strategy
+session =      require 'express-session'
 
 routes = require './routes/index'
 app = express()
@@ -23,9 +24,10 @@ app.use bodyParser.urlencoded extended: false
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public' # static file hosting (dev only)
 
-app.use require('express-session')(
-  secret: 'keyboard cat',
-  resave: false,
+secret = 'the most toast'
+app.use session(
+  secret: secret
+  resave: false
   saveUninitialized: false
 )
 

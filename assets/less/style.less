@@ -9,6 +9,8 @@ body {
   min-height: 100%;
   margin: 0px;
   padding: 0px 30%;
+  /*background-image: linear-gradient(rgb(240,144,0), rgb(240,96,0));*/
+  background-image: linear-gradient(rgb(100,100,100), rgb(200,200,200));
 
   @media (max-width: 960px) {
     /*margin: 0px 10%;*/
@@ -16,6 +18,75 @@ body {
   }
   @media (max-width: 768px) {
     padding: 0px 10px;
+  }
+}
+
+header > ul li{
+  color: rgb(144,48,0);
+}
+
+@circle-diameter: 100px;
+@half: @circle-diameter / 2;
+
+.wrapper {
+  width: @circle-diameter;
+  height: @circle-diameter;
+  position: absolute;
+  clip: rect(0px, @circle-diameter, @circle-diameter, @half);
+}
+
+.circle {
+  width: 80px;
+  height: 80px;
+  border: 10px solid green;
+  border-radius: 50px;
+  position: absolute;
+  clip: rect(0px, @half, @circle-diameter, 0px);
+}
+
+div[data-anim~=base] {
+  -webkit-animation-iteration-count: 2;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-timing-function: linear;
+}
+
+div[data-anim~=wrapper] {
+  -webkit-animation-duration: 0.01s;
+  -webkit-animation-delay: 3s;
+  -webkit-animation-name: close-wrapper;
+}
+
+div[data-anim~=left] {
+  -webkit-animation-duration: 6s;
+  -webkit-animation-name: left-spin;
+  //-webkit-transform: rotate(200deg);
+}
+
+div[data-anim~=right] {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-name: right-spin;
+  //-webkit-transform: rotate(100deg);
+}
+
+@-webkit-keyframes right-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  } to {
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+@-webkit-keyframes left-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  } to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes close-wrapper {
+  to {
+    clip: rect(auto, auto, auto, auto);
   }
 }
 
