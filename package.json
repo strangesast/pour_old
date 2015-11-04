@@ -8,10 +8,11 @@
   },
   "dependencies": {
     "body-parser": "*",
+    "connect-redis": "^3.0.1",
     "cookie-parser": "*",
     "debug": "*",
     "express": "*",
-    "express-session": "^1.12.0",
+    "express-session": "^1.12.1",
     "jade": "*",
     "mongoose": "^4.2.3",
     "morgan": "*",

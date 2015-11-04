@@ -1,0 +1,14 @@
+extends layout
+
+mixin loading(id, percent)
+  .percentage(id=id, toast=percent)
+    .bar
+
+block content
+  +loading('test', 48)
+
+block head
+  link(rel='stylesheet', href='/css/test.css')
+
+block scripts
+  script(src='/js/test.js')

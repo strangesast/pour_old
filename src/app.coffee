@@ -8,6 +8,8 @@ mongoose =     require 'mongoose'
 passport =     require 'passport'
 LocalStrategy= require('passport-local').Strategy
 session =      require 'express-session'
+RedisStore =   require('connect-redis')(session)
+sessionStore = new RedisStore()
 
 routes = require './routes/index'
 app = express()
@@ -28,6 +30,7 @@ secret = 'the most toast'
 app.use session(
   secret: secret
   resave: false
+  store: sessionStore
   saveUninitialized: false
 )
 

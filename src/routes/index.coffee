@@ -9,6 +9,12 @@ passport = require 'passport'
 #wss = new WebSocketServer server: server, path: '/pourlive'
 #server.listen(3002)
 
+router.get '/pour', (req, res) ->
+  res.render 'pour', user: req.user
+
+router.get '/test', (req, res) ->
+  res.render 'test', user: req.user
+
 router.get '/', (req, res, next) ->
   # get pour history
   #   last temps
@@ -56,11 +62,12 @@ router.get '/logout', (req, res) ->
 
 router.get '/user/:account_name', (req, res) ->
   # user is logged in
-  if req.user
-    return res.render 'user', user: req.user, account_name: req.params.account_name
+  if req.user and req.user.username == req.params.account_name
+    return res.render 'current_user', {user: req.user, account_name: req.params.account_name}
 
   # is not logged in
-  res.render 'user', account_name: req.params.account_name
+  else
+    res.render 'other_user', {user: req.user, account_name: req.params.account_name}
 
 router.all '/pour', (req, res) ->
   user = req.user
