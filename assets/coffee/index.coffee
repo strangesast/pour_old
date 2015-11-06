@@ -38,6 +38,7 @@ class Icon
     ctx.textBaseline = 'middle'
     ctx.fillText("#{Math.floor(percent)}%", r, r-lw)
   set_percentage: (percent, time, anim=false) ->
+    percent = Math.min(100, Math.max(percent, 0))
     if percent != @percentage
       diff = percent - @percentage
       if anim
@@ -166,24 +167,24 @@ pour_button = document.getElementById 'pour'
 pour_output = document.getElementById 'pour-output'
 pour_input = document.getElementById 'pour-input'
 pour_progress = document.getElementById 'pour-progress'
-icon = new Icon(loading_canvas, 100)
 
-beericon = new BeerIcon canvas, 500
-beericon.set_percentage 100, 5000, true
+beericon = new BeerIcon canvas, canvas.parentElement.clientWidth
+beericon.set_percentage 0, 0, false
 
 pour_button.addEventListener 'click', (e) ->
   val = pour_input.value
-  console.log val
+  pour_input.disabled = true
   console.log val == "" or not isNaN(val)
   if val == "" or isNaN(val)
     return
   makeRequest('/pour', 'POST', amount: val, null).then (response) ->
-    icon.clear_percentage()
+    beericon.clear_percentage()
     if 'error' of response
       console.log "ERROR"
       console.log response.error
       return Promise.reject(response.error)
     return response['socket_url']
+
   .then (rel_url) ->
     console.log rel_url
     socket_addr = 'ws://' + document.URL.split('://')[1] + rel_url
@@ -191,10 +192,25 @@ pour_button.addEventListener 'click', (e) ->
     socket = new WebSocket socket_addr
     console.log "socket"
     console.log socket
+
+    socket.onopen = (event) ->
+      socket.send JSON.stringify pour_amount: val
+
     socket.onmessage = (event) ->
       console.log 'message'
-      data = event.data
-      console.log data
+      data = JSON.parse event.data
+      if data.update?
+        {time: ct, total: tot, current: cflow} = data.update
+        flow_percent = Math.floor cflow/tot*100
+        beericon.set_percentage flow_percent, 100, true
+        pour_progress.setAttribute 'value', flow_percent
+        console.log "flow percent: #{flow_percent}"
+        console.log "average flow rate: #{cflow/ct}"
+      else if data.end?
+        if data.end == true
+          pour_input.disabled = false
+      else
+        console.log data
         
       #data = JSON.parse(event.data)
       #a = data.all
@@ -205,3 +221,5 @@ pour_button.addEventListener 'click', (e) ->
       #  icon.set_percentage(perc, null, false)
       #  beericon.set_percentage(perc, null, false)
       #pour_output.textContent = a
+      #
+  .then (result) ->

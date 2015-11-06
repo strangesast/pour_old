@@ -1,5 +1,9 @@
 extends layout
 
+mixin loading(id, percent)
+  .percentage(id=id, value=percent)
+    .bar
+
 mixin rad_loading(_id)
   .wrapper(id=_id, data-anim="base wrapper")
     .circle(data-anim="base left")
@@ -11,6 +15,17 @@ block head
 block content
   #header
     p Welcome to Pour
+
+  #actions-container
+    h3 Actions
+    div
+      input(type='number', min="0", name="volume", placeholder='ticks')#pour-input
+      button#pour Pour
+
+    +loading('pour-progress', 0)
+    pre#pour-output
+    canvas#test-canvas
+    canvas#loading-canvas
 
   #summary-container
     h3 Status
@@ -26,16 +41,7 @@ block content
     else
       p No drinkers
 
-  #actions-container
-    h3 Actions
-    div
-      input(type='number', min="0", name="volume", placeholder='ticks')#pour-input
-      button#pour Pour
 
-    progress(max="100", value="0")#pour-progress
-    pre#pour-output
-    canvas#test-canvas
-    canvas#loading-canvas
 
 block scripts
   script(src='/js/index.js')

@@ -97,7 +97,8 @@ input, button {
 }
 
 header {
-  min-height: 80px;
+  //min-height: 80px;
+  height: auto;
   padding: 50px 10px 0px 10px;
 
   & > ul {
@@ -110,7 +111,7 @@ header {
     }
 
     li:first-child {
-      font-size: 50px;
+      font-size: 100px;
       & > a {
         color: black;
         text-decoration: none;
@@ -205,7 +206,7 @@ a {
 
 .loop(@counter) when (@counter > -1) {
   .loop((@counter - 1));    // next iteration
-  div[toast="@{counter}"].percentage {
+  div[value="@{counter}"].percentage {
     & > .bar {
       width: (1% * @counter);
     }
