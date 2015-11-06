@@ -10,3 +10,4 @@ bin/www
 *.swp
 npm-debug.log
 arduino/*/.build
+models/*.js
